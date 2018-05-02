@@ -19699,7 +19699,6 @@ h1 {
 /* navigation */
 button#btnMainMenuToggler {
   margin-top: 10px;
-
   color: #fff;
 }
 
@@ -19716,7 +19715,6 @@ button#btnMainMenuToggler {
 @media (min-width: 992px) {
   .page-content.container-max {
     margin-top: 50px;
-
     padding: 0 15px;
   }
 }
