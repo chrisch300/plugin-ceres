@@ -21622,6 +21622,7 @@ var init = function ($, window, document) {
             });
         });
 		/* general changes*/
+		console.log('$(".categoriegrid").length',$(".categoriegrid").length);
         if ($(".categoriegrid").length == 0) {
             $(".page-content.container-max").css("margin-top", "20px");
             $("nav#twig-rendered-breadcrumbs").css("position", "relative");
