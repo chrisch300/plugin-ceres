@@ -21621,6 +21621,12 @@ var init = function ($, window, document) {
                 $("#currencySelect").collapse("hide");
             });
         });
+		/* general changes*/
+        if ($(".categoriegrid").length == 0) {
+            $(".page-content.container-max").css("margin-top", "20px");
+            $("nav#twig-rendered-breadcrumbs").css("position", "relative");
+            $("nav#twig-rendered-breadcrumbs").css("top", "unset");
+        }
     }
 
     window.CeresMain = new CeresMain();

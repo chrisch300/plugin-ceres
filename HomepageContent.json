@@ -21,9 +21,10 @@
     ],
     "texts":
     {
-      "welcome": "Herzlich Willkommen!",
+      "alarm": "Wir räumen unser komplettes Jobe Lager. Das Angebot gilt für alle Jobe Produktgruppen ausgenommen SUP, Tower und Verdecke, solange Vorrat reicht, Zwischenverkauf vorbehalten.",
+      "welcome": "Im Wassersportland Onlineshop bieten wir Ihnen Wassersport Artikel aller Art, wie z. B. eine riesige Auswahl an Stand Up Paddle Boards (SUP, iSUP und Hardshell-Sup) Wakeboards, Wasserski, Neoprenanzüge, Tauchanzüge, Surfanzüge, Segelzubehör, Bootsschuhe sowie Rash Guards & Boardshorts, Tubes und Towables, Bananen, Watersleds, Wasser-Trampoline, Aquaglide Kajak, Multisport, Kneeboards und Produkte für Ihren Jetski / PWC an. Sollten Sie Artikel aus den aktuellen Katalogen bei uns noch nicht finden, haben Sie Fragen oder Anregungen, so rufen Sie bitte im Tel.-Support unter der Rufnummer +49 (0)8333 / 9275333 an, wir helfen Ihnen sehr gerne.!",
       "shortDescription": "... in unserem neuen Responsive-Template <b>Ceres</b>. Das Template wurde optimiert für die Darstellung auf allen modernen Endgeräten (Desktop, Notebook, Tablet, Smartphone). Wir freuen uns über Ihr Interesse und wünschen Ihnen viel Spaß beim Entdecken der neuen Funktionalitäten.",
-      "longText": "",
+      "longText": "Um das Einkaufserlebnis auf www.wassersportland.de für Sie zu verbessern haben wir auf ein komplett neues Shopsystem umgestellt. Ihr \"altes\" Passwort konnten wir aus Datenschutzgründen leider nicht übernehmen. Sofern Sie bereits Kunde beim Wassersportland sind nutzen Sie bitte die Passwort vergessen Funktion und Ihre beim ersten Anmelden genutzte Emailadresse. Sie erhalten vom Shop-System dann automatisch ein neu generiertes Passwort per Email gesendet, mit welchem Sie wieder Zugang zu Ihren Kundendaten erhalten. Viel Spaß beim Totalräumungsverkauf und beim Einkaufen in unserem Wassersport Online Shop wünscht Manfred Fran und das ganze Wassersportland Team",
       "recommendText": "plentymarkets empfiehlt"
     },
     "recommended":
@@ -46,7 +47,7 @@
         "pluginLink": "https://marketplace.plentymarkets.com/de/plugins/plentymarkets-GmbH/PayPal_4690",
         "pluginTitle": "PayPal"
       }
-      
+
     ]
   },
   "en":

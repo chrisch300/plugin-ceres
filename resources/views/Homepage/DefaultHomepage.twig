@@ -1,10 +1,20 @@
 {% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
-
 {% set overrideHomepageContainer = LayoutContainer.show("Ceres::Homepage") %}
 {% if overrideHomepageContainer | trim is empty %}
 
     {% set lang = services.sessionStorage.getLang() %}
-
+    <div class="container brand">
+        <div class="col-md-3">
+            <a class="navbar-brand pull-lg-left" href="/">
+                <img src="/layout/wafra_responsive/bilder/logo_v2_1.png" alt="Jobe Boating" class="wafra-logo">
+            </a>
+        </div>
+        <div class="col-md-9 search">
+            <div id="searchBox" class="cmp cmp-search-box {% if services.template.isSearch() %} in {% endif %}">
+                <item-search template="#vue-item-search"></item-search>
+            </div>
+        </div>
+    </div>
     {% set slider1 = {
     item: services.itemLoader.loadForTemplate('Ceres::Homepage.Homepage', itemLoaderPresets.items, {variationIds: [config("Ceres.homepage.sliderItemId1")]}).documents[0].data,
     url: config("Ceres.homepage.sliderImageUrl1") } %}
@@ -55,13 +65,13 @@
     services.itemLoader.loadForTemplate(
     'Ceres::ItemList.ItemListView',
     itemLoaderPresets.categoryList,
-    {'categoryId': category3.id, 'page':1, 'items':4, 'sorting': itemSort}) %}
+    {'categoryId': category3.id, 'page':2, 'items':40, 'sorting': itemSort}) %}
 
     {% set paginatedCategoryList2 =
     services.itemLoader.loadForTemplate(
     'Ceres::ItemList.ItemListView',
     itemLoaderPresets.categoryList,
-    {'categoryId': category6.id, 'page':1, 'items':4, 'sorting': itemSort}) %}
+    {'categoryId': category6.id, 'page':2, 'items':40, 'sorting': itemSort}) %}
 
     {% set categoryList1 = paginatedCategoryList1.documents %}
     {% set categoryList2 = paginatedCategoryList2.documents %}
@@ -71,11 +81,6 @@
     {{ component( "Ceres::Basket.Components.AddToBasket" ) }}
 
     <div class="home container-max">
-        <div class="row">
-            <div class="homepage-title m-b-1">
-                <h1>{{ config("Ceres.header.company_name") }}</h1>
-            </div>
-        </div>
 
         <div class="row">
             <div class="cmp cmp-hero">
@@ -83,7 +88,7 @@
                 {% if homepageContainer1 | trim is empty %}
                     {% if slider1.url or slider2.url or slider3.url %}
                         <div class="hero-main">
-                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <div id="carousel-example-generic" class="carousel slide col-md-9" data-ride="carousel">
                                 <div class="carousel-inner" role="listbox">
                                     {% set slideCount = 0 %}
                                     {% if slider1.url | trim is not empty %}
@@ -164,6 +169,10 @@
                                 {% endif %}
 
                             </div>
+                            <div class="l-mix col-md-3 hidden-sm">
+                                <img src="/layout/wafra_responsive/bilder/logo_mix1.png" alt="Jobe Boating"
+                                     class="logo-mix">
+                            </div>
                         </div>
                     {% endif %}
                 {% else %}
@@ -172,7 +181,6 @@
 
                 {% set homepageContainer2 = LayoutContainer.show("Ceres::Homepage.Container2") %}
                 {% set homepageContainer3 = LayoutContainer.show("Ceres::Homepage.Container3") %}
-
                 {% if heroExtra1.url | trim is not empty or heroExtra2.url | trim is not empty or homepageContainer2 | trim is not empty or homepageContainer3 | trim is not empty %}
                     <div class="hero-xtras">
                         {% if homepageContainer2 | trim is empty %}
@@ -279,118 +287,166 @@
 
             {% set homepageContainer6 = LayoutContainer.show("Ceres::Homepage.Container6") %}
             {% if categoryList1 is not empty or homepageContainer6 | trim is not empty %}
-                <div class="m-b-2 clearfix">
-                    {% if homepageContainer6 | trim is empty %}
-                        <div class="section-header m-b-1">
-                            <h2>{{ category3.details[0].name }}</h2>
-                            <a href="{{ services.category.getURL(category3, lang) }}"
-                               class="section-link-all"><i
-                                        class="fa fa-angle-double-right"
-                                        aria-hidden="true"></i> {{ trans("Ceres::Template.homepageShowAll") }}</a>
-                        </div>
-                        <ul class="product-list row grid">
-                            {% for item in categoryList1 %}
-                                <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                    {% include "Ceres::Category.Item.Partials.CategoryListItem" with { 'item': item } %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ homepageContainer6 }}
-                    {% endif %}
-                </div>
-            {% endif %}
-
-            {#<!-- CATEGORIES -->#}
-            {% set homepageContainer7 = LayoutContainer.show("Ceres::Homepage.Container7") %}
-            {% set homepageContainer8 = LayoutContainer.show("Ceres::Homepage.Container8") %}
-            {% if category4.details is not empty or homepageContainer7 | trim is not empty or category5.details is not empty or homepageContainer8 | trim is not empty %}
-                <div class="row prop-row m-y-2 featured-categories">
-                    {% if category4.details is not empty or homepageContainer7 | trim is not empty %}
-                        <div class="col-xs-12 col-lg-{% if category5.details is not empty or homepageContainer8 | trim is not empty %}8{% else %}12{% endif %}">
-                            <div class="prop-xs-6-4 prop-md-3-1 prop-lg-{% if category5.details is not empty or homepageContainer8 | trim is not empty %}2{% else %}3{% endif %}-1">
-                                {% if homepageContainer7 | trim is empty %}
-                                    <div class="prop-inner">
-                                        <a class="featured-category"
-                                           href="{{ services.category.getURL(category4, lang) }}">
-                                            {% if category4.details[0].imagePath %}
-                                                <img src="/documents/{{ category4.details[0].imagePath }}"
-                                                     alt="{{ category4.details[0].name }}">
-                                            {% endif %}
-                                            <div class="featured-category-inner">
-                                                <h2 class="featured-category-headline">
-                                                    <i class="fa fa-angle-double-right"
-                                                       aria-hidden="true"></i> {{ category4.details[0].name }}
-                                                </h2>
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% else %}
-                                    {{ homepageContainer7 }}
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    {% if category5.details is not empty or homepageContainer8 | trim is not empty %}
-                        <div class="col-xs-12 col-lg-{% if category4.details is not empty or homepageContainer7 | trim is not empty %}4{% else %}12{% endif %}">
-                            <div class="prop-xs-6-4 prop-md-3-1 prop-lg-{% if category4.details is not empty or homepageContainer7 | trim is not empty %}1{% else %}3{% endif %}-1">
-                                {% if homepageContainer8 | trim is empty %}
-                                    <div class="prop-inner">
-                                        <a class="featured-category"
-                                           href="{{ services.category.getURL(category5, lang) }}">
-                                            {% if category5.details[0].imagePath %}
-                                                <img src="/documents/{{ category5.details[0].imagePath }}"
-                                                     alt="{{ category5.details[0].name }}">
-                                            {% endif %}
-                                            <div class="featured-category-inner">
-                                                <h2 class="featured-category-headline">
-                                                    <i class="fa fa-angle-double-right"
-                                                       aria-hidden="true"></i> {{ category5.details[0].name }}
-                                                </h2>
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% else %}
-                                    {{ homepageContainer8 }}
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            {% endif %}
-
-            <!-- END CATEGORIES -->
-
-            {% set homepageContainer9 = LayoutContainer.show("Ceres::Homepage.Container9") %}
-            {% if categoryList2 is not empty or homepageContainer9 | trim is not empty %}
-                <div class="m-b-2 clearfix">
-                    {% if homepageContainer9 | trim is empty %}
-                        <div class="section-header m-b-1">
-                            <h2>{{ category6.details[0].name }}</h2>
-                            <a href="{{ services.category.getURL(category6, lang) }}"
-                               class="section-link-all"><i
-                                        class="fa fa-angle-double-right"
-                                        aria-hidden="true"></i> {{ trans("Ceres::Template.homepageShowAll") }}</a>
-                        </div>
-                        <!-- crosssell start -->
-                        <ul class="product-list row grid">
-                            {% for item in categoryList2 %}
-                                <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                    {% include "Ceres::Category.Item.Partials.CategoryListItem" with { 'item': item } %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ homepageContainer9 }}
-                    {% endif %}
-                </div>
-            {% endif %}
-
-            {{ LayoutContainer.show("Ceres::Homepage.Container10") }}
-
         </div>
+        <!-- <div class="row side-navi col-md-3">
+            {% include "Ceres::PageDesign.Partials.Header.NavigationList" %}
+        </div>-->
+        <div id="contentWrapper">
+            <div class="row">
+                <h1>JOBE Lagerräumung! Alle JOBE Artikel radikal reduziert!</h1>
+                <div class="col-lg-6">
+                    <div>
+                        <h1 id="welcome-text">{% autoescape false %}{{ homepageData.texts.alarm }}{% endautoescape %}</h1>
+                        <p class="alarm">
+                            Wir räumen unser komplettes Jobe Lager.
+                            Das Angebot gilt für alle Jobe Produktgruppen ausgenommen SUP, Tower und Verdecke, solange
+                            Vorrat reicht, Zwischenverkauf vorbehalten.
+                        </p></div>
+                    <div class="welcome">
+                        <p id="welcome-text">{% autoescape false %}{{ homepageData.texts.welcome }}{% endautoescape %}</p>
+                        <p>
+                            Im Wassersportland Onlineshop bieten wir Ihnen Wassersport Artikel aller Art,
+                            wie z. B. eine riesige Auswahl an Stand Up Paddle Boards (SUP, iSUP und Hardshell-Sup)
+                            Wakeboards, Wasserski, Neoprenanzüge, Tauchanzüge, Surfanzüge,
+                            Segelzubehör, Bootsschuhe sowie Rash Guards & Boardshorts, Tubes und Towables, Bananen,
+                            Watersleds, Wasser-Trampoline, Aquaglide Kajak,
+                            Multisport, Kneeboards und Produkte für Ihren Jetski / PWC an.
+                            <br><br>
+                            Sollten Sie Artikel aus den aktuellen Katalogen bei uns noch nicht finden, haben Sie Fragen
+                            oder Anregungen, so rufen Sie bitte im Tel.-Support
+                            unter der Rufnummer +49 (0)8333 / 9275333 an, wir helfen Ihnen sehr gerne.
+                        </p></div>
+                </div>
+                <div class="col-lg-6">
+                    <p id="longText">{% autoescape false %}{{ homepageData.texts.shortDescription }}{% endautoescape %}</p>
+                    <p>
+                        Um das Einkaufserlebnis auf www.wassersportland.de für Sie zu verbessern haben wir auf ein
+                        komplett neues Shopsystem umgestellt. Ihr "altes" Passwort konnten wir aus Datenschutzgründen
+                        leider nicht übernehmen.
+                        Sofern Sie bereits Kunde beim Wassersportland sind nutzen Sie bitte die Passwort vergessen
+                        Funktion und Ihre beim ersten Anmelden genutzte Emailadresse.
+                        Sie erhalten vom Shop-System dann automatisch ein neu generiertes Passwort per Email gesendet,
+                        mit welchem Sie wieder Zugang zu Ihren Kundendaten erhalten.
+                        Viel Spaß beim Totalräumungsverkauf und beim Einkaufen in unserem Wassersport Online Shop
+                        wünscht
+                        <br><br>
+                        Manfred Franz
+                        und das ganze Wassersportland Team
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="m-b-2 clearfix">
+            {% if homepageContainer6 | trim is empty %}
+                <div class="section-header m-b-1">
+                    <h2>{{ category3.details[0].name }}</h2>
+                    <a href="{{ services.category.getURL(category3, lang) }}"
+                       class="section-link-all"><i
+                                class="fa fa-angle-double-right"
+                                aria-hidden="true"></i> {{ trans("Ceres::Template.homepageShowAll") }}</a>
+                </div>
+                <ul class="product-list row grid">
+                    {% for item in categoryList1 %}
+                        <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            {% include "Ceres::Category.Item.Partials.CategoryListItem" with { 'item': item } %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {{ homepageContainer6 }}
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {#<!-- CATEGORIES -->#}
+        {% set homepageContainer7 = LayoutContainer.show("Ceres::Homepage.Container7") %}
+        {% set homepageContainer8 = LayoutContainer.show("Ceres::Homepage.Container8") %}
+        {% if category4.details is not empty or homepageContainer7 | trim is not empty or category5.details is not empty or homepageContainer8 | trim is not empty %}
+            <div class="row prop-row m-y-2 featured-categories">
+                {% if category4.details is not empty or homepageContainer7 | trim is not empty %}
+                    <div class="col-xs-12 col-lg-{% if category5.details is not empty or homepageContainer8 | trim is not empty %}8{% else %}12{% endif %}">
+                        <div class="prop-xs-6-4 prop-md-3-1 prop-lg-{% if category5.details is not empty or homepageContainer8 | trim is not empty %}2{% else %}3{% endif %}-1">
+                            {% if homepageContainer7 | trim is empty %}
+                                <div class="prop-inner">
+                                    <a class="featured-category"
+                                       href="{{ services.category.getURL(category4, lang) }}">
+                                        {% if category4.details[0].imagePath %}
+                                            <img src="/documents/{{ category4.details[0].imagePath }}"
+                                                 alt="{{ category4.details[0].name }}">
+                                        {% endif %}
+                                        <div class="featured-category-inner">
+                                            <h2 class="featured-category-headline">
+                                                <i class="fa fa-angle-double-right"
+                                                   aria-hidden="true"></i> {{ category4.details[0].name }}
+                                            </h2>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            {% else %}
+                                {{ homepageContainer7 }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if category5.details is not empty or homepageContainer8 | trim is not empty %}
+                    <div class="col-xs-12 col-lg-{% if category4.details is not empty or homepageContainer7 | trim is not empty %}4{% else %}12{% endif %}">
+                        <div class="prop-xs-6-4 prop-md-3-1 prop-lg-{% if category4.details is not empty or homepageContainer7 | trim is not empty %}1{% else %}3{% endif %}-1">
+                            {% if homepageContainer8 | trim is empty %}
+                                <div class="prop-inner">
+                                    <a class="featured-category"
+                                       href="{{ services.category.getURL(category5, lang) }}">
+                                        {% if category5.details[0].imagePath %}
+                                            <img src="/documents/{{ category5.details[0].imagePath }}"
+                                                 alt="{{ category5.details[0].name }}">
+                                        {% endif %}
+                                        <div class="featured-category-inner">
+                                            <h2 class="featured-category-headline">
+                                                <i class="fa fa-angle-double-right"
+                                                   aria-hidden="true"></i> {{ category5.details[0].name }}
+                                            </h2>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% else %}
+                                {{ homepageContainer8 }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <!-- END CATEGORIES -->
+
+        {% set homepageContainer9 = LayoutContainer.show("Ceres::Homepage.Container9") %}
+        {% if categoryList2 is not empty or homepageContainer9 | trim is not empty %}
+            <div class="m-b-2 clearfix">
+                {% if homepageContainer9 | trim is empty %}
+                    <div class="section-header m-b-1">
+                        <h2>{{ category6.details[0].name }}</h2>
+                        <a href="{{ services.category.getURL(category6, lang) }}"
+                           class="section-link-all"><i
+                                    class="fa fa-angle-double-right"
+                                    aria-hidden="true"></i> {{ trans("Ceres::Template.homepageShowAll") }}</a>
+                    </div>
+                    <!-- crosssell start -->
+                    <ul class="product-list row grid">
+                        {% for item in categoryList2 %}
+                            <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                {% include "Ceres::Category.Item.Partials.CategoryListItem" with { 'item': item } %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    {{ homepageContainer9 }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {{ LayoutContainer.show("Ceres::Homepage.Container10") }}
+
     </div>
 {% else %}
     {{ overrideHomepageContainer }}
